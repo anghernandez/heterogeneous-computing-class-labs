@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define VECTOR_SIZE 2048
-#define MATRIX_SIZE 2048
+#define VECTOR_SIZE 1024
+#define MATRIX_SIZE 1024
 #define DEFAULT_REPETITIONS 1
 
 float dot_product_scalar(const float a[VECTOR_SIZE], const float b[VECTOR_SIZE])
@@ -12,6 +12,11 @@ float dot_product_scalar(const float a[VECTOR_SIZE], const float b[VECTOR_SIZE])
 
     for (int i = 0; i < VECTOR_SIZE; ++i) {
         result += a[i] * b[i];
+        // i = 0 result += a[0] * b[0]
+        // i = 1 result += a[1] * b[1]
+        // i = 2 result += a[2] * b[2]
+        // ...                  
+        // i = 1023 result += a[1023] * b[1023]
     }
 
     return result;

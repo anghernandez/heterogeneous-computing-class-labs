@@ -3,8 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 
-#define VECTOR_SIZE 2048
-#define MATRIX_SIZE 2048
+#define VECTOR_SIZE 1024
+#define MATRIX_SIZE 1024
 #define AVX_FLOATS 8
 #define DEFAULT_REPETITIONS 1
 
