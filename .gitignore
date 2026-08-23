@@ -1,0 +1,12 @@
+.vscode/
+
+# Compiled binaries
+matmul_avx2
+matmul_scalar
+matmul_tiled_openmp
+softmax_openmp
+cpu-affinity
+cpu-naive
+
+# Object files
+*.o
