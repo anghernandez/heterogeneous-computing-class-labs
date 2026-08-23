@@ -1,42 +1,55 @@
-## Laboratorio 2 — Aceleración mediante vectorización SIMD con AVX2
+# Lab 2 - Acceleration Through SIMD Vectorization with AVX2
 
-### Objetivo
+### Objective
 
-Comparar el rendimiento de una multiplicación de matrices utilizando una implementación escalar y una implementación vectorizada mediante instrucciones SIMD con AVX2.
+Compare the performance of matrix multiplication using a scalar implementation
+and a vectorized implementation with SIMD and AVX2 instructions.
 
-Se utilizaron matrices de tamaño `1024 × 1024`. La versión escalar procesa los elementos individualmente, mientras que la versión AVX2 utiliza registros de 256 bits para operar sobre grupos de 8 valores `float` de 32 bits.
+Matrices of size `1024 x 1024` were used. The scalar version processes the
+elements individually, while the AVX2 version uses 256-bit vector registers
+to operate on groups of 8 `float` values of 32 bits each.
 
-### Resultados
+## Results
 
-| Implementación | Tiempo (s) | Rendimiento (GFLOP/s) |
-| -------------- | ---------: | --------------------: |
-| Escalar        |   1.242651 |              1.728147 |
-| AVX2           |   0.320768 |              6.694815 |
+| Implementation | Time (s) | Performance (GFLOP/s) |
+| -------------- | -------: | --------------------: |
+| Scalar         | 1.242651 |              1.728147 |
+| AVX2           | 0.320768 |              6.694815 |
 
-Ambas implementaciones produjeron el mismo resultado:
+Both implementations produced the same results:
 
-* **Checksum:** `10871481693.000000`
-* **C[0][0]:** `13391.250000`
-* **C[1023][1023]:** `13403.250000`
+- **Checksum:** `10871481693.000000`
+- **C[0][0]:** `13391.250000`
+- **C[1023][1023]:** `13403.250000`
 
-El *speedup* obtenido fue:
+The obtained *speedup* was:
 
 $$
-S = \frac{T_{\text{escalar}}}{T_{\text{AVX2}}}
+S = \frac{T_{\text{scalar}}}{T_{\text{AVX2}}}
 = \frac{1.242651}{0.320768}
 \approx 3.87
 $$
 
-Por lo que para esta ejecución la implementación vectorizada fue aproximadamente **3.87 veces más rápida** que la implementación escalar.
+Therefore, for this execution, the vectorized implementation was approximately
+**3.87 times faster** than the scalar implementation.
 
-### Análisis
+### Analysis
 
-AVX2 permite trabajar con registros vectoriales de 256 bits. Debido a que cada valor `float` ocupa 32 bits, un registro puede contener hasta 8 valores:
+AVX2 allows the use of 256-bit vector registers. Since each `float` value
+requires 32 bits, a register can contain 8 values:
+
 $$
-\frac{256}{32}=8
+\frac{256}{32} = 8
 $$
-Esto permite realizar una misma operación sobre varios elementos simultáneamente mediante SIMD (*Single Instruction, Multiple Data*).
 
-Sin embargo, procesar 8 valores mediante una instrucción vectorial **no implica obtener un speedup de 8× en el programa completo**. La multiplicación de matrices también requiere otras operaciones, como carga de datos desde memoria, reducción de los resultados parciales, transposición de la matriz y control de los ciclos. Estas operaciones también consumen tiempo y limitan la aceleración total obtenida.
+This allows the same operation to be performed on multiple elements
+simultaneously using SIMD.
 
-En la medición realizada se obtuvo un speedup de aproximadamente **3.87×**, mostrando una mejora significativa en el rendimiento mediante el uso de instrucciones SIMD con AVX2.
+However, processing 8 values with a vector instruction does not imply a speedup
+of 8x for the complete program. Matrix multiplication also requires other
+operations, such as loading data from memory, reducing partial results,
+transposing the matrix, and loop control. These operations also consume time
+and limit the total acceleration obtained.
+
+In this measurement, a speedup of approximately **3.87x** was obtained, showing a significant performance improvement through the use of SIMD instructions
+with AVX2.
