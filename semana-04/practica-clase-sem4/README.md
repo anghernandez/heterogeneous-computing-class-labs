@@ -345,9 +345,9 @@ Por eso son necesarias métricas como speedup y eficiencia.
 programa después de aplicar una mejora, tomando como referencia la ejecución
 con un solo hilo.
 
-$
+$$
 S(p) = \frac{T_1}{T_p}
-$
+$$
 
 - Speedup > 1: existe una mejora.
 - Speedup = 1: no existe mejora.
@@ -363,9 +363,9 @@ ejecución continúa disminuyendo de manera significativa.
 "¿cuánto más rápido fui?", la eficiencia responde "¿qué tan bien aproveché
 los hilos que utilicé?".
 
-$
+$$
 E(p) = \frac{S(p)}{p} \times 100\%
-$
+$$
 
 Una eficiencia cercana al 100 % indica un aprovechamiento cercano al ideal de
 los recursos utilizados. Normalmente la eficiencia disminuye al agregar más
