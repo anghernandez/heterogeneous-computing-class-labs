@@ -1,0 +1,8 @@
+Tamano matriz: 512x512
+Tamano tile: 32
+Threads solicitados: 2
+Threads usados: 2
+Repeticiones: 10
+Checksum: 1358927389.250000
+C[0][0]: 6694.375000
+Tiempo: 0.535680 segundos

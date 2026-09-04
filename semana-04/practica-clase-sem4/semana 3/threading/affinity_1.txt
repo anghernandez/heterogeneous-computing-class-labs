@@ -1,0 +1,7 @@
+CPUs logicos disponibles: 8
+Hilos utilizados: 1
+Thread 0: 256.00 MB inicializados desde CPU 0
+Thread 0: finalizado en CPU 0
+real 6.04 s
+user 5.74 s
+sys 0.19 s

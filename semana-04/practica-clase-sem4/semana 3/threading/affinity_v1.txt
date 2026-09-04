@@ -1,0 +1,20 @@
+CPUs logicos disponibles: 8
+Thread 4: 256.00 MB inicializados desde CPU 4
+Thread 0: 256.00 MB inicializados desde CPU 0
+Thread 2: 256.00 MB inicializados desde CPU 2
+Thread 1: 256.00 MB inicializados desde CPU 1
+Thread 5: 256.00 MB inicializados desde CPU 5
+Thread 6: 256.00 MB inicializados desde CPU 6
+Thread 3: 256.00 MB inicializados desde CPU 3
+Thread 7: 256.00 MB inicializados desde CPU 7
+Thread 7: finalizado en CPU 7
+Thread 2: finalizado en CPU 2
+Thread 3: finalizado en CPU 3
+Thread 0: finalizado en CPU 0
+Thread 4: finalizado en CPU 4
+Thread 1: finalizado en CPU 1
+Thread 6: finalizado en CPU 6
+Thread 5: finalizado en CPU 5
+real 11.36 s
+user 50.69 s
+sys 2.27 s

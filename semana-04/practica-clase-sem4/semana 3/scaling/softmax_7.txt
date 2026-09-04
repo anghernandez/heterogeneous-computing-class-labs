@@ -1,0 +1,7 @@
+Elementos: 1000
+Threads solicitados: 7
+Threads usados: 7
+Repeticiones: 100000
+Suma softmax: 1.00000000000000000
+Tiempo: 1.093668 segundos
+Primeros valores: 0.000000644488 0.000000712270 0.000000787180 0.000000869968 0.000000961464

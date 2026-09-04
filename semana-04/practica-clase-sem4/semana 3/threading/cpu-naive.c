@@ -60,24 +60,58 @@ static void *worker(void *arg) {
   return NULL;
 }
 
-int main(void) {
+/*
+ * Cambio para que main reciba argumentos, para poder
+ * pasarle el numero de threads.
+ */
+int main(int argc, char *argv[]) {
+
+  if (argc != 2) {
+    fprintf(stderr, "Uso: %s <numero_de_hilos>\n", argv[0]);
+    return EXIT_FAILURE;
+  }
+
+  int num_threads = atoi(argv[1]);
+
+  if (num_threads < 1 || num_threads > NUM_THREADS) {
+    fprintf(stderr, "El numero de hilos debe estar entre 1 y %d\n",
+            NUM_THREADS);
+    return EXIT_FAILURE;
+  }
+
   pthread_t threads[NUM_THREADS];
   thread_arg_t args[NUM_THREADS];
 
   long num_cpus = sysconf(_SC_NPROCESSORS_ONLN);
 
   printf("CPUs logicos disponibles: %ld\n", num_cpus);
+  printf("Hilos utilizados: %d\n", num_threads);
 
-  for (int i = 0; i < NUM_THREADS; i++) {
+  /*
+   * Verifica que no se soliciten mas hilos que
+   * CPUs logicos disponibles.
+   */
+  if (num_cpus < num_threads) {
+    fprintf(stderr, "No hay suficientes CPUs logicas\n");
+    return EXIT_FAILURE;
+  }
+
+  /*
+   * Reserva e inicializa la memoria correspondiente
+   * a cada thread.
+   */
+  for (int i = 0; i < num_threads; i++) {
     double *memory = NULL;
 
     memory = (double *)malloc(MEMORY_SIZE);
 
     if (memory == NULL) {
       fprintf(stderr, "Thread %d: error reservando memoria\n", i);
+
       for (int j = 0; j < i; j++) {
         free(args[j].memory);
       }
+
       return EXIT_FAILURE;
     }
 
@@ -93,7 +127,12 @@ int main(void) {
     args[i].memory = memory;
   }
 
-  for (int i = 0; i < NUM_THREADS; i++) {
+  /*
+   * Crea los threads.
+   * En esta version no se fija afinidad a ningun CPU.
+   * El sistema operativo decide en que CPU ejecutarlos.
+   */
+  for (int i = 0; i < num_threads; i++) {
     int ret = pthread_create(&threads[i], NULL, worker, &args[i]);
 
     if (ret != 0) {
@@ -102,11 +141,17 @@ int main(void) {
     }
   }
 
-  for (int i = 0; i < NUM_THREADS; i++) {
+  /*
+   * Espera a que todos los threads terminen.
+   */
+  for (int i = 0; i < num_threads; i++) {
     pthread_join(threads[i], NULL);
   }
 
-  for (int i = 0; i < NUM_THREADS; i++) {
+  /*
+   * Libera la memoria reservada.
+   */
+  for (int i = 0; i < num_threads; i++) {
     free(args[i].memory);
   }
 

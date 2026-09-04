@@ -96,46 +96,57 @@ static void *worker(void *arg) {
   return NULL;
 }
 
-int main(void) {
-  pthread_t threads[NUM_THREADS];
-  thread_arg_t args[NUM_THREADS];
-
-  long num_cpus = sysconf(_SC_NPROCESSORS_ONLN);
-
-  printf("CPUs logicos disponibles: %ld\n", num_cpus);
-
-  if (num_cpus < NUM_THREADS) {
-    fprintf(stderr, "Se necesitan al menos %d CPUs logicos\n", NUM_THREADS);
-    return EXIT_FAILURE;
-  }
-
+//int main(void) {
   /*
-   * CPU IDs que queremos utilizar.
-   *
-   * Puedes cambiarlos, por ejemplo:
-   *
-   * {0, 2, 4, 6}
-   *
-   * si quieres evitar hyperthreads hermanos.
+   * Cambio para que el main reciba argumentos, para poder 
+   * pasarle el número de threads y la cantidad de memoria 
+   * por thread.
    */
-  int cpu_map[NUM_THREADS] = {0, 1, 2, 3, 4, 5, 6, 7};
+  int main(int argc, char *argv[]) {
 
-  for (int i = 0; i < NUM_THREADS; i++) {
-    args[i].thread_id = i;
-    args[i].cpu_id = cpu_map[i];
-    args[i].memory_size = MEMORY_SIZE;
-
-    int ret = pthread_create(&threads[i], NULL, worker, &args[i]);
-
-    if (ret != 0) {
-      fprintf(stderr, "Error creando thread %d\n", i);
-      return EXIT_FAILURE;
+    if (argc != 2) {
+        fprintf(stderr, "Uso: %s <numero_de_hilos>\n", argv[0]);
+        return EXIT_FAILURE;
     }
-  }
 
-  for (int i = 0; i < NUM_THREADS; i++) {
-    pthread_join(threads[i], NULL);
-  }
+    int num_threads = atoi(argv[1]);
 
-  return EXIT_SUCCESS;
+    if (num_threads < 1 || num_threads > NUM_THREADS) {
+        fprintf(stderr, "El numero de hilos debe estar entre 1 y %d\n", NUM_THREADS);
+        return EXIT_FAILURE;
+    }
+
+    pthread_t threads[NUM_THREADS];
+    thread_arg_t args[NUM_THREADS];
+
+    long num_cpus = sysconf(_SC_NPROCESSORS_ONLN);
+
+    printf("CPUs logicos disponibles: %ld\n", num_cpus);
+    printf("Hilos utilizados: %d\n", num_threads);
+
+    if (num_cpus < num_threads) {
+        fprintf(stderr, "No hay suficientes CPUs logicas\n");
+        return EXIT_FAILURE;
+    }
+
+    int cpu_map[NUM_THREADS] = {0, 1, 2, 3, 4, 5, 6, 7};
+
+    for (int i = 0; i < num_threads; i++) {
+        args[i].thread_id = i;
+        args[i].cpu_id = cpu_map[i];
+        args[i].memory_size = MEMORY_SIZE;
+
+        int ret = pthread_create(&threads[i], NULL, worker, &args[i]);
+
+        if (ret != 0) {
+            fprintf(stderr, "Error creando thread %d\n", i);
+            return EXIT_FAILURE;
+        }
+    }
+
+    for (int i = 0; i < num_threads; i++) {
+        pthread_join(threads[i], NULL);
+    }
+
+    return EXIT_SUCCESS;
 }

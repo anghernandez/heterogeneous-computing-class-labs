@@ -1,0 +1,12 @@
+CPUs logicos disponibles: 8
+Hilos utilizados: 3
+Thread 0: 256.00 MB asignados
+Thread 2: 256.00 MB asignados
+Thread 1: 256.00 MB asignados
+Thread 0: finalizado
+Thread 2: finalizado
+Thread 1: finalizado
+
+real	0m4,733s
+user	0m13,109s
+sys	0m0,192s

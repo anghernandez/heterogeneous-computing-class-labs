@@ -1,0 +1,12 @@
+Library version
+Elements: 1000000
+Iterations: 1000
+A offset: 1.000000
+B offset: 2.000000
+
+Profile:
+  fill A: 2414084.880 microseconds total, 2414.085 per iteration
+  fill B: 2289122.683 microseconds total, 2289.123 per iteration
+  add:    2275456.567 microseconds total, 2275.457 per iteration
+  total:  6978664.774 microseconds
+-rwxrwxr-x 1 ang ang 16K sep  4 07:48 build/lib/libvectorops.so
