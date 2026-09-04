@@ -1,6 +1,28 @@
 # Práctica Semana 3
 <div align="justify">
 
+### 💻 Especificaciones del equipo
+
+Las pruebas de rendimiento fueron ejecutadas en el siguiente equipo:
+
+| Característica | Especificación |
+|---|---|
+| Sistema operativo | Ubuntu 22.04.5 LTS (Jammy) |
+| Arquitectura | x86_64 |
+| Procesador | Intel Core i5-10210U @ 1.60 GHz |
+| Núcleos físicos | 4 |
+| Procesadores lógicos | 8 |
+| Hilos por núcleo | 2 |
+| Frecuencia máxima | 4.20 GHz |
+| Caché L1 de datos | 128 KiB (4 instancias) |
+| Caché L1 de instrucciones | 128 KiB (4 instancias) |
+| Caché L2 | 1 MiB (4 instancias) |
+| Caché L3 | 6 MiB |
+| Memoria RAM | 15 GiB |
+| Swap | 15 GiB |
+| Nodos NUMA | 1 |
+
+
 
 ## Affinity y Naive
 ### Affinity
